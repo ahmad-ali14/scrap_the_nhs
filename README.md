@@ -1,4 +1,4 @@
-# scrap the NHS
+# scrape NHS
 
 > **_DESCLAIMER: this repo for education purposes only, get inspired by it, but `DON'T` use it commercially._**
 
