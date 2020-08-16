@@ -1,6 +1,6 @@
 # scrape NHS search results
 
-> **_DESCLAIMER: this repo for education purposes only, get inspired by it, but `DON'T` use it commercially._**
+> **_DESCLAIMER: this repo for education purposes only._**
 
 ## url
 
