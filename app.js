@@ -1,5 +1,7 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
+const jsonfile = require('jsonfile')
+
 
 function getOrg(url) {
     axios.get(url).then(
@@ -26,12 +28,12 @@ function getOrg(url) {
             trs.each((i, tr) => {
                 let el = {};
                 el.tr_index = i;
-                el.tr = $(tr);
+                // el.tr = $(tr);
 
                 // each table head
                 $(tr).find("th").each((j, th) => {
                     el.th_index = j;
-                    el.th = $(th);
+                    //   el.th = $(th);
 
                     // each a in the th 
                     $(th).find('a').each((l, a) => {
@@ -44,12 +46,12 @@ function getOrg(url) {
                 // each table cell
                 $(tr).find("td").each((k, td) => {
                     el.td_index = k;
-                    el.td = $(td);
+                    // el.td = $(td);
 
                     // each div in the td 
                     $(td).find('div').each((m, div0) => {
                         el.div0_index = m;
-                        el.div0 = $(div0);
+                        //   el.div0 = $(div0);
 
                         // each p in div0
                         $(div0).find('p').each((n, p) => {
@@ -75,6 +77,13 @@ function getOrg(url) {
             console.log(report);
 
 
+            // save report as json file
+            let filename = './data/' + report.search + '.json';
+            jsonfile.writeFile(filename, report, function (err) {
+                if (err) return console.error(err)
+                console.log('JSON file created')
+            })
+
 
         }
 
@@ -90,10 +99,9 @@ function prepareUrl(lat, lang, postcode = "your-area", distance = 25, result_on_
 }
 
 
-let url = prepareUrl(-0.340432852506638, 51.5755271911621);
 
-
-getOrg(url);
+// get data
+getOrg(prepareUrl(-0.340432852506638, 51.5755271911621));
 
 
 
