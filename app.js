@@ -1,9 +1,11 @@
 const axios = require('axios');
 const cheerio = require('cheerio');
-const jsonfile = require('jsonfile')
+const jsonfile = require('jsonfile');
+const fs = require('fs');
 
 
-function getOrg(url) {
+
+function getOrg(url, newFile = true) {
     axios.get(url).then(
         page => {
 
@@ -79,9 +81,16 @@ function getOrg(url) {
 
             // save report as json file
             let filename = './data/' + report.search + '.json';
+
+            // if file existed and asked for new file
+            while (newFile && fs.existsSync(filename)) {
+                random = Math.floor(Math.random() * Math.floor(100));
+                filename = `./data/${report.search}(${random}).json`
+            }
+
             jsonfile.writeFile(filename, report, function (err) {
                 if (err) return console.error(err)
-                console.log('JSON file created')
+                console.log(`JSON file created: ${filename}`)
             })
 
 
