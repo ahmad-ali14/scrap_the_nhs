@@ -67,6 +67,7 @@ function getOrg(url) {
 
             // add res to the report
             report.res = res;
+            report.numberOfResults = res.length;
 
 
             // log final report
@@ -82,7 +83,15 @@ function getOrg(url) {
 
 
 
-let url = "https://www.nhs.uk/service-search/other-services/Mental-health-support/ha1/Results/92/-0.340432852506638/51.5755271911621/330/0?distance=25";
+// let url = "https://www.nhs.uk/service-search/other-services/Mental-health-support/ha1/Results/92/-0.340432852506638/51.5755271911621/330/0?distance=25";
+
+function prepareUrl(lat, lang, postcode = "your-area", distance = 25, result_on_page = 25, is_national = 0, maximum_number_of_seach_results = 50, current_page_number = 1) {
+    return `https://www.nhs.uk/service-search/other-services/Mental-health-support/${postcode}/Results/92/${lat}/${lang}/330/0?distance=${distance}&ResultsOnPageValue=${result_on_page}&isNational=${is_national}&totalItems=${maximum_number_of_seach_results}&currentPage=${current_page_number}`;
+}
+
+
+let url = prepareUrl(-0.340432852506638, 51.5755271911621);
+
 
 getOrg(url);
 
